@@ -9,9 +9,23 @@ const dataService = require("./data-service.js");
 
 const data = dataService(mongoDBConnectionString);
 const app = express();
+const path = require('path');
+
+//setup static folder
+app.use(express.static("assignment1"));
 
 app.use(bodyParser.json());
 app.use(cors());
+
+// setup a 'route' to listen on the default url path (http://localhost)
+app.get("/", function (req, res) {
+    try {
+        res.sendFile(path.join(_dirname + "index.html"));
+    } catch (rejectMsg) {
+        // catch any errors here
+        console.log(rejectMsg);
+    };
+});
 
 // "Employee" Routes
 
