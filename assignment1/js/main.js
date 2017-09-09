@@ -21,7 +21,7 @@ $(function() {
     $( "#teams-menu" ).on( "click", function( event ) {
         event.preventDefault;
         $.ajax({
-            url: "http://localhost:8081/teams", 
+            url: "/teams", 
             type: "GET",
             contentType: "application/json"
         })
@@ -44,7 +44,7 @@ $(function() {
     $( "#employees-menu" ).on( "click", function( event ) {
         event.preventDefault;
         $.ajax({
-            url: "http://localhost:8081/employees", 
+            url: "/employees", 
             type: "GET",
             contentType: "application/json"
         })
@@ -67,7 +67,7 @@ $(function() {
     $( "#projects-menu" ).on( "click", function( event ) {
         event.preventDefault;
         $.ajax({
-            url: "http://localhost:8081/projects", 
+            url: "/projects", 
             type: "GET",
             contentType: "application/json"
         })
@@ -90,7 +90,7 @@ $(function() {
     $( "#positions-menu" ).on( "click", function( event ) {
         event.preventDefault;
         $.ajax({
-            url: "http://localhost:8081/positions", 
+            url: "/positions", 
             type: "GET",
             contentType: "application/json"
         })
