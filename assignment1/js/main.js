@@ -1,14 +1,14 @@
 /*********************************************************************************
-* WEB422 – Assignment 1
-* I declare that this assignment is my own work in accordance with Seneca Academic Policy.
-* No part of this assignment has been copied manually or electronically from any other source
-* (including web sites) or distributed to other students.
-*
-* Name: Stephanie Tran Student ID: 134 233 162 Date: September 15 2017
-* Heroku link: https://glacial-cove-51366.herokuapp.com/
-*
-*
-********************************************************************************/ 
+ * WEB422 – Assignment 1
+ * I declare that this assignment is my own work in accordance with Seneca Academic Policy.
+ * No part of this assignment has been copied manually or electronically from any other source
+ * (including web sites) or distributed to other students.
+ *
+ * Name: Stephanie Tran Student ID: 134 233 162 Date: September 15 2017
+ * Heroku link: https://glacial-cove-51366.herokuapp.com/
+ *
+ *
+ ********************************************************************************/
 
 $(function() {
     console.log("jQuery running.");
@@ -18,22 +18,23 @@ $(function() {
      *   default action is prevented;
      *   AJAX GET request made to TEAMS API
      */
-    $( "#teams-menu" ).on( "click", function( event ) {
+    $("#teams-menu").on("click", function(event) {
         event.preventDefault;
         $.ajax({
-            url: "/teams", 
-            type: "GET",
-            contentType: "application/json"
-        })
-        .done(function (teams) {
-            $("#data").empty()
-                .append("<h3>Teams</h3>")
-                .append(JSON.stringify(teams));
+                url: "https://glacial-cove-51366.herokuapp.com/teams",
+                type: "GET",
+                contentType: "application/json"
+            })
+            .done(function(teams) {
+                $("#data").empty()
+                    .append("<h3>Teams</h3>")
+                    .append(JSON.stringify(teams));
+                resolve(teams);
 
-        })
-        .fail(function (err) {
-            console.log("error: " + err.statusText);
-        });
+            })
+            .fail(function(err) {
+                console.log("error: " + err.statusText);
+            });
     });
 
     /* 
@@ -41,22 +42,22 @@ $(function() {
      *   default action is prevented;
      *   AJAX GET request for employees
      */
-    $( "#employees-menu" ).on( "click", function( event ) {
+    $("#employees-menu").on("click", function(event) {
         event.preventDefault;
         $.ajax({
-            url: "/employees", 
-            type: "GET",
-            contentType: "application/json"
-        })
-        .done(function (employees) {
-            $("#data").empty()
-                .append("<h3>Employees</h3>")
-                .append(JSON.stringify(employees));
+                url: "https://glacial-cove-51366.herokuapp.com/employees",
+                type: "GET",
+                contentType: "application/json"
+            })
+            .done(function(employees) {
+                $("#data").empty()
+                    .append("<h3>Employees</h3>")
+                    .append(JSON.stringify(employees));
 
-        })
-        .fail(function (err) {
-            console.log("error: " + err.statusText);
-        });
+            })
+            .fail(function(err) {
+                console.log("error: " + err.statusText);
+            });
     });
 
     /* 
@@ -64,22 +65,22 @@ $(function() {
      *   default action is prevented;
      *   AJAX GET request for projects
      */
-    $( "#projects-menu" ).on( "click", function( event ) {
+    $("#projects-menu").on("click", function(event) {
         event.preventDefault;
         $.ajax({
-            url: "/projects", 
-            type: "GET",
-            contentType: "application/json"
-        })
-        .done(function (projects) {
-            $("#data").empty()
-                .append("<h3>Projects</h3>")
-                .append(JSON.stringify(projects));
+                url: "https://glacial-cove-51366.herokuapp.com/projects",
+                type: "GET",
+                contentType: "application/json"
+            })
+            .done(function(projects) {
+                $("#data").empty()
+                    .append("<h3>Projects</h3>")
+                    .append(JSON.stringify(projects));
 
-        })
-        .fail(function (err) {
-            console.log("error: " + err.statusText);
-        });
+            })
+            .fail(function(err) {
+                console.log("error: " + err.statusText);
+            });
     });
 
     /* 
@@ -87,24 +88,24 @@ $(function() {
      *   default action is prevented;
      *   AJAX GET request for positions
      */
-    $( "#positions-menu" ).on( "click", function( event ) {
+    $("#positions-menu").on("click", function(event) {
         event.preventDefault;
         $.ajax({
-            url: "/positions", 
-            type: "GET",
-            contentType: "application/json"
-        })
-        .done(function (positions) {
-            $("#data").empty()
-                .append("<h3>Positions</h3>")
-                .append(JSON.stringify(positions));
+                url: "https://glacial-cove-51366.herokuapp.com/positions",
+                type: "GET",
+                contentType: "application/json"
+            })
+            .done(function(positions) {
+                $("#data").empty()
+                    .append("<h3>Positions</h3>")
+                    .append(JSON.stringify(positions));
 
-        })
-        .fail(function (err) {
-            console.log("error: " + err.statusText);
-        });
+            })
+            .fail(function(err) {
+                console.log("error: " + err.statusText);
+            });
     });
 
 
 
-  });
+});
