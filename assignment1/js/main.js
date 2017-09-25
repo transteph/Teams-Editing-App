@@ -9,103 +9,110 @@
  *
  *
  ********************************************************************************/
-
+// employee array for view model
+let employeesModel = [];
 $(function() {
     console.log("jQuery running.");
-
-    /* 
-     *   When #teams-menu is clicked:
-     *   default action is prevented;
-     *   AJAX GET request made to TEAMS API
-     */
-    $("#teams-menu").on("click", function(event) {
-        event.preventDefault;
-        $.ajax({
-                url: "https://glacial-cove-51366.herokuapp.com/teams",
-                type: "GET",
-                contentType: "application/json"
-            })
-            .done(function(teams) {
-                $("#data").empty()
-                    .append("<h3>Teams</h3>")
-                    .append(JSON.stringify(teams));
-                resolve(teams);
-
-            })
-            .fail(function(err) {
-                console.log("error: " + err.statusText);
-            });
+    initializeEmployeesModel();
+    $('#employee-search').keyup(function() {
+        let search = $(this).val();
+        console.log('Search running.');
+        let filter = getFilteredEmployeesModel(search);
+        console.log("Filter: " + JSON.stringify(filter));
+        refreshEmployeeRows(filter);
     });
 
-    /* 
-     *   When #employees-menu is clicked:
-     *   default action is prevented;
-     *   AJAX GET request for employees
+
+    /**
+     *   initializeEmployeesModel() 
+     *   populates employeesModel array
      */
-    $("#employees-menu").on("click", function(event) {
-        event.preventDefault;
+    function initializeEmployeesModel() {
         $.ajax({
                 url: "https://glacial-cove-51366.herokuapp.com/employees",
                 type: "GET",
                 contentType: "application/json"
             })
             .done(function(employees) {
-                $("#data").empty()
-                    .append("<h3>Employees</h3>")
-                    .append(JSON.stringify(employees));
 
+                employeesModel = employees;
+                console.log("Running");
+                refreshEmployeeRows(employeesModel);
             })
             .fail(function(err) {
+                showGenericModal("Error", "Unable to get Employees");
                 console.log("error: " + err.statusText);
             });
-    });
 
-    /* 
-     *   When #projects-menu is clicked:
-     *   default action is prevented;
-     *   AJAX GET request for projects
+    }
+
+    /**
+     *  showGenericModal(title,message)
+     *  Sets content for genericModal
      */
-    $("#projects-menu").on("click", function(event) {
-        event.preventDefault;
-        $.ajax({
-                url: "https://glacial-cove-51366.herokuapp.com/projects",
-                type: "GET",
-                contentType: "application/json"
-            })
-            .done(function(projects) {
-                $("#data").empty()
-                    .append("<h3>Projects</h3>")
-                    .append(JSON.stringify(projects));
+    function showGenericModal(title, message) {
+        $('.modal-title').append(title);
+        $('.modal-body').append(title);
+        // show the modal programmatically
+        $('#genericModal').modal({
+            keyboard: true
+        });
+    }
 
-            })
-            .fail(function(err) {
-                console.log("error: " + err.statusText);
-            });
-    });
-
-    /* 
-     *   When #positions-menu is clicked:
-     *   default action is prevented;
-     *   AJAX GET request for positions
+    /**
+     *  refreshEmployeeRows(employees) 
+     *  Sets content for genericModal
      */
-    $("#positions-menu").on("click", function(event) {
-        event.preventDefault;
-        $.ajax({
-                url: "https://glacial-cove-51366.herokuapp.com/positions",
-                type: "GET",
-                contentType: "application/json"
-            })
-            .done(function(positions) {
-                $("#data").empty()
-                    .append("<h3>Positions</h3>")
-                    .append(JSON.stringify(positions));
+    function refreshEmployeeRows(employeesModel) {
+        let rowTemplate = _.template('<% _.forEach(employeesModel, function(employee) { %>' +
+            '<div class="row body-row" data-id="<%- employee._id %>">' +
+            '<div class="col-xs-4 body-column"><%- employee.FirstName %></div>' +
+            '<div class="col-xs-4 body-column"><%- employee.LastName %></div>' +
+            '<div class="col-xs-4 body-column"><%- employee.Position.PositionName %></div>' +
+            '</div>' +
+            '<% }); %>');
+        $('#employees-table').empty();
+        $('#employees-table').append(rowTemplate);
+    };
 
-            })
-            .fail(function(err) {
-                console.log("error: " + err.statusText);
-            });
-    });
+    /**
+     *  getFilteredEmployeesModel(filterString) 
+     *  Returns filtered employeesModel array
+     */
+    function getFilteredEmployeesModel(filterString) {
+        filterString = filterString.toString().toLowerCase();
+        // create case-insensitive, global regex out of filterString
 
+        matches = [];
+
+        // search first names
+        matches += _.filter(employeesModel, (function(employee) {
+            return employee.FirstName.toLowerCase().indexOf(filterString) > -1;
+        }));
+
+        // search last names
+        matches += _.filter(employeesModel, (function(employee) {
+            return employee.LastName.toLowerCase().indexOf(filterString) > -1;
+        }));
+
+        // search positions
+        matches += _.filter(employeesModel, (function(employee) {
+            return employee.Position.PositionName.toLowerCase().indexOf(filterString) > -1;
+        }));
+        console.log("Matches: " + JSON.stringify(matches));
+        return matches;
+    }
+
+    /**
+     *  getEmployeeModelById(id) 
+     *  Searches employeesModel array.
+     *  Returns deep copy of employee obj or null
+     */
+    function getEmployeeModelById(id) {
+        _.filter(employeesModel, (function(employee) {
+            return (employee._id == id);
+        }));
+    }
 
 
 });
