@@ -1,5 +1,5 @@
 /*********************************************************************************
- * WEB422 – Assignment 1
+ * WEB422 – Assignment 2
  * I declare that this assignment is my own work in accordance with Seneca Academic Policy.
  * No part of this assignment has been copied manually or electronically from any other source
  * (including web sites) or distributed to other students.
@@ -10,15 +10,23 @@
  *
  ********************************************************************************/
 // employee array for view model
-let employeesModel = [];
 $(function() {
     console.log("jQuery running.");
+
+    let employeesModel;
+
+    let rowTemplate = _.template('<% _.forEach(employees, function(employee) { %>' +
+    '<div class="row body-row" data-id="<%- employee._id %>">' +
+    '<div class="col-xs-4 body-column"><%- employee.FirstName %></div>' +
+    '<div class="col-xs-4 body-column"><%- employee.LastName %></div>' +
+    '<div class="col-xs-4 body-column"><%- employee.Position.PositionName %></div>' +
+    '</div>' +
+    '<% }); %>');
+
     initializeEmployeesModel();
     $('#employee-search').keyup(function() {
         let search = $(this).val();
-        console.log('Search running.');
         let filter = getFilteredEmployeesModel(search);
-        console.log("Filter: " + JSON.stringify(filter));
         refreshEmployeeRows(filter);
     });
 
@@ -33,10 +41,8 @@ $(function() {
                 type: "GET",
                 contentType: "application/json"
             })
-            .done(function(employees) {
-
-                employeesModel = employees;
-                console.log("Running");
+            .done(function(data) {
+                employeesModel = data;
                 refreshEmployeeRows(employeesModel);
             })
             .fail(function(err) {
@@ -63,16 +69,10 @@ $(function() {
      *  refreshEmployeeRows(employees) 
      *  Sets content for genericModal
      */
-    function refreshEmployeeRows(employeesModel) {
-        let rowTemplate = _.template('<% _.forEach(employeesModel, function(employee) { %>' +
-            '<div class="row body-row" data-id="<%- employee._id %>">' +
-            '<div class="col-xs-4 body-column"><%- employee.FirstName %></div>' +
-            '<div class="col-xs-4 body-column"><%- employee.LastName %></div>' +
-            '<div class="col-xs-4 body-column"><%- employee.Position.PositionName %></div>' +
-            '</div>' +
-            '<% }); %>');
+    function refreshEmployeeRows(employees) {
+        let rows = rowTemplate({'employees' : employees});
         $('#employees-table').empty();
-        $('#employees-table').append(rowTemplate);
+        $('#employees-table').append(rows);
     };
 
     /**
@@ -80,26 +80,20 @@ $(function() {
      *  Returns filtered employeesModel array
      */
     function getFilteredEmployeesModel(filterString) {
-        filterString = filterString.toString().toLowerCase();
-        // create case-insensitive, global regex out of filterString
 
-        matches = [];
+       // filterString = filterString.toString().toLowerCase();
 
-        // search first names
-        matches += _.filter(employeesModel, (function(employee) {
-            return employee.FirstName.toLowerCase().indexOf(filterString) > -1;
-        }));
+        let matches = _.filter(employeesModel, function(employee) {
+            if (employee.FirstName.indexOf(filterString) > -1 ||
+                employee.LastName.indexOf(filterString) > -1 ||
+                employee.Position.PositionName.indexOf(filterString) > -1 ) {
+                    return true;
+                }
+            else {
+                return false;
+            }
 
-        // search last names
-        matches += _.filter(employeesModel, (function(employee) {
-            return employee.LastName.toLowerCase().indexOf(filterString) > -1;
-        }));
-
-        // search positions
-        matches += _.filter(employeesModel, (function(employee) {
-            return employee.Position.PositionName.toLowerCase().indexOf(filterString) > -1;
-        }));
-        console.log("Matches: " + JSON.stringify(matches));
+        });
         return matches;
     }
 
