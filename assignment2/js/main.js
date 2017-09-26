@@ -79,7 +79,9 @@ $(function() {
      *  Sets content for genericModal
      */
     function showGenericModal(title, message) {
-        console.log("showGenericModal. title: " + title);
+        $('.modal-title').empty();
+        $('.modal-body').empty();
+        
         $('.modal-title').append(title);
         $('.modal-body').append(message);
         // show the modal programmatically

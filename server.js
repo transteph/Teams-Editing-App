@@ -12,7 +12,7 @@ const app = express();
 const path = require('path');
 
 //setup static folder
-app.use(express.static("assignment1"));
+app.use(express.static("assignment2"));
 
 app.use(bodyParser.json());
 app.use(cors());
