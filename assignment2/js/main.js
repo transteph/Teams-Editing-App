@@ -40,7 +40,7 @@ $(function() {
         console.log("body row clicked. data-id: " + $(this).attr("data-id") );
         employeeFound = getEmployeeModelById( $(this).attr("data-id") );
 
-        employeeFound[0].HireDate = moment(employeeFound.HireDate).format("LL");
+        employeeFound[0].HireDate = moment(employeeFound[0].HireDate).format("LL");
         console.log("employeeFound: " + JSON.stringify(employeeFound[0]));
         let modalTemplate = _.template(
             '<strong>Address:</strong> <%- employee.AddressStreet %>, <%- employee.AddressCity %>, <%- employee.AddressState %> <%- employee.AddressZip %><br>' +
