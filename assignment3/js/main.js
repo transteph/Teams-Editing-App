@@ -1,10 +1,10 @@
 /*********************************************************************************
- * WEB422 – Assignment 2
+ * WEB422 – Assignment 3
  * I declare that this assignment is my own work in accordance with Seneca Academic Policy.
  * No part of this assignment has been copied manually or electronically from any other source
  * (including web sites) or distributed to other students.
  *
- * Name: Stephanie Tran Student ID: 134 233 162 Date: September 24 2017
+ * Name: Stephanie Tran Student ID: 134 233 162 Date: October 6 2017
  * Heroku link: https://glacial-cove-51366.herokuapp.com/
  *
  *
@@ -16,18 +16,18 @@ $(function() {
     let employeesModel;
 
     let rowTemplate = _.template('<% _.forEach(employees, function(employee) { %>' +
-    '<div class="row body-row" data-id="<%- employee._id %>">' +
-    '<div class="col-xs-4 body-column"><%- employee.FirstName %></div>' +
-    '<div class="col-xs-4 body-column"><%- employee.LastName %></div>' +
-    '<div class="col-xs-4 body-column"><%- employee.Position.PositionName %></div>' +
-    '</div>' +
-    '<% }); %>');
+        '<div class="row body-row" data-id="<%- employee._id %>">' +
+        '<div class="col-xs-4 body-column"><%- employee.FirstName %></div>' +
+        '<div class="col-xs-4 body-column"><%- employee.LastName %></div>' +
+        '<div class="col-xs-4 body-column"><%- employee.Position.PositionName %></div>' +
+        '</div>' +
+        '<% }); %>');
 
     /**
      *  Wiring up events
      */
     initializeEmployeesModel();
-    
+
     // Set keyup event
     $('#employee-search').keyup(function() {
         let search = $(this).val();
@@ -36,19 +36,19 @@ $(function() {
     });
 
     // wiring click events
-    $('.bootstrap-header-table').on('click', '.body-row', function(){
-        console.log("body row clicked. data-id: " + $(this).attr("data-id") );
-        employeeFound = getEmployeeModelById( $(this).attr("data-id") );
+    $('.bootstrap-header-table').on('click', '.body-row', function() {
+        console.log("body row clicked. data-id: " + $(this).attr("data-id"));
+        employeeFound = getEmployeeModelById($(this).attr("data-id"));
 
         employeeFound[0].HireDate = moment(employeeFound[0].HireDate).format("LL");
         console.log("employeeFound: " + JSON.stringify(employeeFound[0]));
         let modalTemplate = _.template(
             '<strong>Address:</strong> <%- employee.AddressStreet %>, <%- employee.AddressCity %>, <%- employee.AddressState %> <%- employee.AddressZip %><br>' +
-            '<strong>Phone Number:</strong> <%-employee.PhoneNum %><br>' + 
+            '<strong>Phone Number:</strong> <%-employee.PhoneNum %><br>' +
             '<strong>Hire Date:</strong> <%- employee.HireDate %>'
         );
-        let modalDisplay = modalTemplate({'employee' : employeeFound[0] });
-        let title = employeeFound[0].FirstName + " " + employeeFound[0].LastName ; 
+        let modalDisplay = modalTemplate({ 'employee': employeeFound[0] });
+        let title = employeeFound[0].FirstName + " " + employeeFound[0].LastName;
         showGenericModal(title, modalDisplay);
     });
 
@@ -81,7 +81,7 @@ $(function() {
     function showGenericModal(title, message) {
         $('.modal-title').empty();
         $('.modal-body').empty();
-        
+
         $('.modal-title').append(title);
         $('.modal-body').append(message);
         // show the modal programmatically
@@ -93,7 +93,7 @@ $(function() {
      *  Sets content for genericModal
      */
     function refreshEmployeeRows(employees) {
-        let rows = rowTemplate({'employees' : employees});
+        let rows = rowTemplate({ 'employees': employees });
         $('#employees-table').empty();
         $('#employees-table').append(rows);
     };
@@ -103,21 +103,20 @@ $(function() {
      *  Returns filtered employeesModel array
      */
     function getFilteredEmployeesModel(filterString) {
-       filterString = filterString.toLowerCase().replace(/\s/gi,'');
-       console.log("Search string: " + filterString);
+        filterString = filterString.toLowerCase().replace(/\s/gi, '');
+        console.log("Search string: " + filterString);
 
         let matches = _.filter(employeesModel, function(employee) {
-            firstName = employee.FirstName.toLowerCase().replace(/\s/g,'');
-            lastName = employee.LastName.toLowerCase().replace(/\s/g,'');
-            position = employee.Position.PositionName.toLowerCase().replace(/\s/g,'');
+            firstName = employee.FirstName.toLowerCase().replace(/\s/g, '');
+            lastName = employee.LastName.toLowerCase().replace(/\s/g, '');
+            position = employee.Position.PositionName.toLowerCase().replace(/\s/g, '');
 
             if (firstName.indexOf(filterString) > -1 ||
                 lastName.indexOf(filterString) > -1 ||
-                position.indexOf(filterString) > -1 ) {
-                    console.log("Match: " + lastName);
-                    return true;
-                }
-            else {
+                position.indexOf(filterString) > -1) {
+                console.log("Match: " + lastName);
+                return true;
+            } else {
                 return false;
             }
 
@@ -135,10 +134,9 @@ $(function() {
             return employee._id == id;
         });
 
-        if (employeeFound[0] != null){
+        if (employeeFound[0] != null) {
             return _.cloneDeep(employeeFound);
-        }
-        else {
+        } else {
             return 0;
         }
 
