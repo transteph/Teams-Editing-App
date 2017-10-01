@@ -13,6 +13,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+//setup static folder
+app.use(express.static("assignment3"));
+
+
 // "Employee" Routes
 
 app.get("/employees", (req, res) => {
