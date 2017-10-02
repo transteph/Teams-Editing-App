@@ -38,20 +38,23 @@
     <!-- grid -->
     <div class="container">
         <div class="row body-rows">
-            <div class="col-md-4">
-                <!-- Bootstrap panel -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <strong>[ Team Name ]</strong>
-                        <button class="btn btn-primary btn-xs pull-right">Save</button>
-                    </div>
-                    <div class="panel-body">
-                        <h5>Team Lead</h5>
-                        <select class="single"></select>
-                        <h5>Team Members</h5>
-                        <select multiple class="multiple"></select>
-                        <h5>Projects</h5>
-                        <select multiple class="multiple"></select>
+            <!-- div with data-bind -->
+            <div style="display:none" data-bind="visible:true, foreach: viewModel.teams">
+                <div class="col-md-4">
+                    <!-- Bootstrap panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>[ Team Name ]</strong>
+                            <button class="btn btn-primary btn-xs pull-right">Save</button>
+                        </div>
+                        <div class="panel-body">
+                            <h5>Team Lead</h5>
+                            <select class="single"></select>
+                            <h5>Team Members</h5>
+                            <select multiple class="multiple"></select>
+                            <h5>Projects</h5>
+                            <select multiple class="multiple"></select>
+                        </div>
                     </div>
                 </div>
             </div>
