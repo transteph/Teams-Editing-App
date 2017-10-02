@@ -40,20 +40,59 @@ $(function() {
      *  Returns a promise
      */
     let initializeTeams = new Promise(function(resolve, reject) {
-            $.ajax({
-                    url: "https://glacial-cove-51366.herokuapp.com/teams-raw",
-                    type: "GET",
-                    contentType: "application/json"
-                })
-                .done(function(data) {
-                    viewModel.teams = ko.mapping.toJS(data);
-                    resolve();
-                })
-                .fail(function(err) {
-                    reject("Error loading the team data.");
-                });
-
-        }
+        $.ajax({
+                url: "https://glacial-cove-51366.herokuapp.com/teams-raw",
+                type: "GET",
+                contentType: "application/json"
+            })
+            .done(function(data) {
+                viewModel.teams = ko.mapping.toJS(data);
+                resolve();
+            })
+            .fail(function(err) {
+                reject("Error loading the team data.");
+            });
     });
+
+    /**
+     *  initializeEmployees()
+     *  Populates teams viewModel.employees
+     *  Returns a promise
+     */
+    let initializeEmployees = new Promise(function(resolve, reject) {
+        $.ajax({
+                url: "https://glacial-cove-51366.herokuapp.com/employees",
+                type: "GET",
+                contentType: "application/json"
+            })
+            .done(function(data) {
+                viewModel.employees = ko.mapping.toJS(data);
+                resolve();
+            })
+            .fail(function(err) {
+                reject("Error loading the employee data.");
+            });
+    });
+
+    /**
+     *  initializeProjects()
+     *  Populates teams viewModel.projects
+     *  Returns a promise
+     */
+    let initializeProjects = new Promise(function(resolve, reject) {
+        $.ajax({
+                url: "https://glacial-cove-51366.herokuapp.com/projects",
+                type: "GET",
+                contentType: "application/json"
+            })
+            .done(function(data) {
+                viewModel.projects = ko.mapping.toJS(data);
+                resolve();
+            })
+            .fail(function(err) {
+                reject("Error loading the project data.");
+            });
+    });
+
 
 });
