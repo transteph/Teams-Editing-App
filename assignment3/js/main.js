@@ -123,6 +123,8 @@ function saveTeam() {
 // DOM ready function
 $(function() {
     console.log("jQuery running.");
+    $(".loader").delay(1500).fadeOut(2000);
+    $('main').delay(1500).fadeIn(2000);
     initializeTeams()
         .then(initializeEmployees)
         .then(initializeProjects)

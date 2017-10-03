@@ -1,14 +1,41 @@
-.bootstrap-header-table {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    max-width: 100%;
-    padding: 0 30px;
+@import url('https://fonts.googleapis.com/css?family=Nunito:700|Roboto');
+body {
+    font-family: 'Roboto', sans-serif !important;
+    background-color: #090707!important;
 }
 
-.bootstrap-header-table .header-row {
-    background-color: #F5F5F5;
-    border: 1px solid gainsboro;
-    padding: 8px;
-    font-size: 17px;
+button {
+    text-transform: none;
+}
+
+.modal-header {
+    text-transform: uppercase!important;
+    letter-spacing: 2px!important;
+}
+
+.panel-default>.panel-heading {
+    background: #008374 !important;
+    color: white!important;
+    text-shadow: none!important;
+}
+
+.navbar-default {
+    background: black!important;
+    border: none !important;
+}
+
+a.navbar-brand {
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    color: white!important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bootstrap-header-table {
+    font-family: "Roboto", Arial, sans-serif;
+    max-width: 100%;
+    padding: 0 30px;
 }
 
 .bootstrap-header-table .header-row .header-column {
@@ -16,7 +43,6 @@
 }
 
 .bootstrap-header-table .body-rows {
-    border: 1px solid gainsboro;
     padding: 5px;
     max-height: 300px;
     overflow-y: scroll;
@@ -55,4 +81,48 @@
 
 .ms-drop input[type="radio"] {
     margin-right: 8px;
+}
+
+main {
+    display: none;
+}
+
+.loader {
+    text-transform: uppercase;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 100px;
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    font-size: 100%;
+    color: black;
+    line-height: 20vw;
+    text-align: center;
+    background-color: #ffc952
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        transform: scale(1) rotate(360deg);
+    }
 }
