@@ -13,7 +13,25 @@
 let viewModel = {
     teams: ko.observable([]),
     employees: ko.observable([]),
-    projects: ko.observable([])
+    projects: ko.observable([]),
+    saveTeam: function() {
+        let currentTeam = this;
+        $.ajax({
+            url: "https://glacial-cove-51366.herokuapp.com/team/:" + currentTeam._id(),
+            type: "PUT",
+            contentType: JSON.stringify({
+                    "Projects": currentTeam.Projects(),
+                    "Employees": currentTeam.Employees(),
+                    "TeamLead": currentTeam.TeamLead()
+                })
+                .done(function(data) {
+                    showGenericModal('Success', currentTeam.TeamName + "Updated Successfully");
+                })
+                .fail(function(err) {
+                    showGenericModal('Error', 'Error updating the team information.');
+                })
+        });
+    }
 };
 
 /**
@@ -95,7 +113,32 @@ function initializeProjects() {
             });
     });
 }
+/**
+ *  saveTeam()
+ *  Sends updated data through API
+ *  Returns a promise
 
+function saveTeam() {
+    let currentTeam = this;
+    console.log("main.js:::saveTeam():::currentTeam.TeamName():::" +
+        currentTeam.TeamName());
+    $.ajax({
+        url: "https://glacial-cove-51366.herokuapp.com/team/:" + currentTeam._id(),
+        type: "PUT",
+        contentType: JSON.stringify({
+                "Projects": currentTeam.Projects(),
+                "Employees": currentTeam.Employees(),
+                "TeamLead": currentTeam.TeamLead()
+            })
+            .done(function(data) {
+                showGenericModal('Success', currentTeam.TeamName + "Updated Successfully");
+            })
+            .fail(function(err) {
+                showGenericModal('Error', 'Error updating the team information.');
+            })
+    });
+};
+ */
 // DOM ready function
 $(function() {
     console.log("jQuery running.");
