@@ -54,8 +54,7 @@
                                 optionsText: function(item) { return ko.unwrap(item.FirstName) + ' ' + ko.unwrap(item.LastName) },
                                 optionsValue: function(item) { return item._id }"></select>
                             <h5>Team Members</h5>
-                            <select multiple class="multiple" data-bind="selectedOptions: $parent.employees,
-                                options: $parent.employees,
+                            <select multiple class="multiple" data-bind="options: $parent.employees,    selectedOptions: Employees,
                                 optionsText: function(item) { return ko.unwrap(item.FirstName) + ' ' + ko.unwrap(item.LastName) },
                                 optionsValue: function(item){return item._id}
                                 "></select>
