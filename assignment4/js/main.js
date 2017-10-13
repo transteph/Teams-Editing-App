@@ -123,12 +123,12 @@ function saveTeam() {
 // DOM ready function
 $(function() {
     console.log("jQuery running.");
-    $(".loader").delay(1500).fadeOut(2000);
-    $('main').delay(1500).fadeIn(2000);
     initializeTeams()
         .then(initializeEmployees)
         .then(initializeProjects)
         .then(() => {
+            $(".loader").fadeOut(2000);
+            $('main').fadeIn(2000);
             ko.applyBindings(viewModel);
             $('select.multiple').multipleSelect({ filter: true });
             $('select.multiple').multipleSelect({ single: true, filter: true });
