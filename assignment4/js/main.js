@@ -128,7 +128,7 @@ $(function() {
         .then(initializeProjects)
         .then(() => {
             $(".loader").fadeOut(2000);
-            $('main').fadeIn(2000);
+            $('main').delay(2000).fadeIn(1000);
             ko.applyBindings(viewModel);
             $('select.multiple').multipleSelect({ filter: true });
             $('select.multiple').multipleSelect({ single: true, filter: true });
