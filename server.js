@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //setup static folder
-app.use(express.static("assignment3"));
+app.use(express.static("public"));
 
 
 // "Employee" Routes
